@@ -1,25 +1,54 @@
-import { useZxing } from 'react-zxing';
-import { useNavigate } from 'react-router-dom';
+import { useZxing } from "react-zxing";
+import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { employeeCodeAtom, UserInfos, userInfosAtom } from "../src/atoms";
 
-
-export function QrScanScreen(){
-    const navigate =useNavigate();
-    const {ref}=useZxing({
-        onDecodeResult(result){
-            const text =result.getText()
-            console.log(text)
-
-            if (text.length===7) {
-                navigate('/select-clockin-type'); // 例えば、特定のQRコードが読み取られたら /new-screen に遷移
-            } else {
-                navigate('/'); // QRコードの内容に応じた遷移先を設定
-            }
+export function QrScanScreen() {
+  const navigate = useNavigate();
+  const [, setEmployeeCode] = useAtom(employeeCodeAtom);
+  const [userInfos, setUserInfos] = useAtom(userInfosAtom);
+  const { ref } = useZxing({
+    onDecodeResult(result) {
+      const employee_code = result.getText();
+      setEmployeeCode(employee_code);
+      if (employee_code.length === 7) {
+        async function getUserInfo() {
+          const URL = process.env.VITE_URL;
+          console.log(URL + "/getUserInfo/" + employee_code);
+          const resultUserInfo = await fetch(
+            URL + "/getUserInfo/" + employee_code,
+          );
+          const userInfos = await resultUserInfo.json();
+          console.log("🍎", userInfos.data);
+          setUserInfos(userInfos.data[0] as UserInfos);
+          //ユーザが存在していたら次の画面に遷移
+          if (!userInfos.data.name) {
+            navigate("/time-select");
+          } else {
+            alert("ユーザ情報が存在しませんでした。");
+          }
         }
-    })
+        getUserInfo();
+      } else {
+        navigate("/");
+      }
+    },
+  });
+  const handleClose = () => {
+    navigate("/");
+  };
 
-    return(
-        <>
-            <video ref ={ref}/>
-        </>
-    )
+  const handleTemtative = () => {
+    navigate("/time-select");
+  };
+  return (
+    <>
+      <div>
+        <p>QRコードを読み込ませてください</p>
+        <button onClick={handleClose}>✖️</button>
+        <button onClick={handleTemtative}>仮）QR読込</button>
+      </div>
+      <video ref={ref} />
+    </>
+  );
 }

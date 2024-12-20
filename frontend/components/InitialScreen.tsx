@@ -1,15 +1,26 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-export function InitialScreen(){
-    const navigate = useNavigate();
+export function InitialScreen() {
+  const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate('/qr-scan');
-    };
+  const handleClick = () => {
+    navigate("/qr-scan");
+  };
 
-    return(
-        <>
-            <button onClick={handleClick}>QR読込</button>
-        </>
-    )
+  return (
+    <>
+      <div
+        onClick={handleClick}
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        QR読み込み <br />
+        画面をタップしてください
+      </div>
+    </>
+  );
 }
