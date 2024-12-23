@@ -2,6 +2,7 @@ import { useZxing } from "react-zxing";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 import { employeeCodeAtom, UserInfos, userInfosAtom } from "../src/atoms";
+import { Box, Button, Typography } from "@mui/material";
 
 export function QrScanScreen() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export function QrScanScreen() {
           const userInfos = await resultUserInfo.json();
           console.log("🍎", userInfos.data);
           setUserInfos(userInfos.data[0] as UserInfos);
-          //ユーザが存在していたら次の画面に遷移
+
           if (!userInfos.data.name) {
             navigate("/time-select");
           } else {
@@ -43,12 +44,68 @@ export function QrScanScreen() {
   };
   return (
     <>
-      <div>
-        <p>QRコードを読み込ませてください</p>
-        <button onClick={handleClose}>✖️</button>
-        <button onClick={handleTemtative}>仮）QR読込</button>
-      </div>
-      <video ref={ref} />
+      {/*<div>*/}
+      {/*  <p>QRコードを読み込ませてください</p>*/}
+      {/*  <button onClick={handleClose}>✖️</button>*/}
+      {/*  <button onClick={handleTemtative}>仮）QR読込</button>*/}
+      {/*</div>*/}
+      {/*<video ref={ref} />*/}
+      <Box
+        sx={{
+          // height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          padding: "20px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{
+              marginTop: "10px",
+              fontWeight: 600,
+              flexGrow: 1,
+              textAlign: "center",
+            }}
+          >
+            QRコードを読み込ませてください
+          </Typography>
+          <Button
+            onClick={handleClose}
+            sx={{
+              backgroundColor: "lightgray",
+              color: "white",
+              fontWeight: 600,
+              fontSize: "32px",
+              marginLeft: "auto",
+              padding: 0,
+              height: "40px",
+            }}
+          >
+            ×
+          </Button>
+        </Box>
+
+        <video
+          ref={ref}
+          style={{
+            width: "100%",
+            // display: "flex",
+            // justifyContent: "flex-end",
+            // maxWidth: "600px",
+            borderRadius: "10px",
+          }}
+        />
+      </Box>
     </>
   );
 }

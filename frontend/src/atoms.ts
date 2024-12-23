@@ -12,5 +12,5 @@ export const employeeCodeAtom = atom("");
 export const clockInTimeAtom = atom(
   new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
 );
-export const orverTimeAtom = atom("");
+export const orverTimeAtom = atom(0);
 export const genreOfClockInAtm = atom("");
