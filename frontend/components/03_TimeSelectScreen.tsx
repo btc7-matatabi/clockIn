@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import TimePicker from "react-time-picker";
-
+import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai/index";
 import {
@@ -28,11 +28,11 @@ import {
   displayUserInfoAtom,
 } from "../src/atoms.ts";
 import { AppToolBar } from "../src/AppToolBar.tsx";
-import {
-  DatePicker,
-  LocalizationProvider,
-  // AdapterDayjs,
-} from "@mui/x-date-pickers";
+// import {
+//   DatePicker,
+//   LocalizationProvider,
+//   // AdapterDayjs,
+// } from "@mui/x-date-pickers";
 import { Radio } from "@mui/icons-material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { JSX } from "react/jsx-runtime";
@@ -45,7 +45,7 @@ export function TimeSelectScreen() {
   const [userInfos] = useAtom(userInfosAtom);
   const [overTime, setOverTime] = useAtom(orverTimeAtom);
   const [genreOfClockIn, setGenreOfClockIn] = useAtom(genreOfClockInAtm); //「始業」か「終了」
-  const [executeDate, setExecuteDate] = useAtom(executeDateAtm); //「始業」か「終了」
+  const [executeDate, setExecuteDate] = useAtom(executeDateAtm);
   const [displayUserInfo, setDisplayUserInfo] = useAtom(displayUserInfoAtom);
   const [regularTime, setRegularTime] = useState(""); // 定時設定
   const radioButtons = [
@@ -130,10 +130,6 @@ export function TimeSelectScreen() {
   };
 
   //time dramで時間変更
-  // const handleChange = (time: string) => {
-  //   setClockInTime(time);
-  //   console.log(clockInTime);
-  // };
   const handleTimeChange = (newValue: string | ((prev: string) => string)) => {
     setClockInTime(newValue);
   };
@@ -146,31 +142,13 @@ export function TimeSelectScreen() {
     const selectedGenre = radioButtons.find((el) => el.value === val);
     if (selectedGenre) {
       setGenreOfClockIn(selectedGenre.label);
+      setClockInTime(new Date());
+      setOverTime(0);
     }
   };
   return (
     <>
-      {/*<button onClick={handleClose}>✖️</button>*/}
-      {/*<p>{displayUserInfo}</p>*/}
-      {/*<button onClick={handleRegularConfirm}>*/}
-      {/*  定時 {regularTime} {genreOfClockIn}確認へ*/}
-      {/*</button>{" "}*/}
-      {/*<p>残業時間指定</p>*/}
-      {/*<button onClick={() => handleOvetimeClick(0.5)}>0.5</button>*/}
-      {/*<button onClick={() => handleOvetimeClick(1.0)}>1.0</button>*/}
-      {/*<button onClick={() => handleOvetimeClick(1.5)}>1.5</button>*/}
-      {/*<button onClick={() => handleOvetimeClick(2.0)}>2.0</button>*/}
-      {/*<button onClick={() => handleOvetimeClick(2.5)}>2.5</button>*/}
-      {/*<button onClick={() => handleOvetimeClick(3.0)}>3.0</button>*/}
-      {/*<TimePicker*/}
-      {/*  onChange={handleChange}*/}
-      {/*  value={clockInTime}*/}
-      {/*  disableClock*/}
-      {/*  clearIcon={null}*/}
-      {/*/>*/}
-      {/*<p>暫定表示）選択した時間{clockInTime}</p>*/}
-      {/*<p>残業時間 {Number(overTime).toFixed(1)}</p>*/}
-      {/*<button onClick={handleConfirm}>{genreOfClockIn}確認へ</button>*/}
+      {/*https://m2.material.io/design/typography/the-type-system.html#type-scale*/}
       <AppToolBar />
       <Box
         sx={{
@@ -182,11 +160,9 @@ export function TimeSelectScreen() {
         }}
       >
         <Typography
-          variant="body1"
+          variant="h3"
           sx={{
             marginBottom: "20px",
-            fontSize: "48px",
-            // textAlign: "left",
             alignSelf: "flex-start",
           }}
         >
@@ -195,37 +171,55 @@ export function TimeSelectScreen() {
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+            // alignItems: "center",
+            alignSelf: "flex-start",
+            verticalAlign: "center",
             fontSize: "48px",
             fontFamily: "Source Sans Pro",
-            // fontFamily: "inter",
-            gap: 2, // 要素間の間隔を設定
+            gap: "20px",
           }}
         >
-          {/*  //https://zenn.dev/longbridge/articles/f11fb58272510c*/}
-          {/*<LocalizationProvider dateAdapter={AdapterDayjs}>*/}
-          {/*  <Box sx={{ m: 2, width: "25ch" }}>*/}
-          {/*    <DatePicker*/}
-          {/*      label="dataPicker"*/}
-          {/*      value={executeDate}*/}
-          {/*      onChange={(newValue) => setExecuteDate(newValue)}*/}
-          {/*      // inputFormat="yyyy/MM/dd"*/}
-          {/*      // mask="____/__/__"*/}
-          {/*      // renderInput={(params) => <TextField {...params} />}*/}
-          {/*    />*/}
-          {/*  </Box>*/}
-          {/*</LocalizationProvider>*/}
-          {/*  /!* 「始業」「終業」のオプションボタン *!/*/}
-          {/*<div className="form-check">*/}
+          <Box sx={{ m: 2, width: "200px" }}>
+            <Typography variant="h5" gutterBottom>
+              申請稼働日
+            </Typography>
+            <DatePicker
+              // label="dataPicker"
+              selected={executeDate}
+              placeholderText={
+                executeDate ? executeDate.toLocaleDateString() : ""
+              }
+              dateFormat="yyyy/MM/dd"
+              onChange={(newValue) => setExecuteDate(newValue)}
+              customInput={
+                <TextField
+                  fullWidth
+                  sx={{
+                    width: "200px",
+                    // fontSize: "48px",
+                    padding: 0,
+                  }}
+                />
+              }
+            />
+          </Box>
           {radioButtons.map((radio) => {
             return (
-              <span key={radio.value}>
+              <span
+                key={radio.value}
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 <input
                   id={radio.value}
                   type="radio"
                   value={radio.value}
                   checked={radio.label === genreOfClockIn}
                   onChange={(e) => handleGenreChange(e.target.value)}
+                  style={{
+                    transform: "scale(3)",
+                    marginRight: "20px",
+                    verticalAlign: "middle",
+                  }}
                 />
                 <label htmlFor={radio.value} className="form-check-label">
                   {radio.label}
@@ -233,20 +227,17 @@ export function TimeSelectScreen() {
               </span>
             );
           })}
-          {/*</div>*/}
         </Box>
         <Button
           onClick={handleRegularConfirm}
           sx={{
             backgroundColor: "#0B5FFF",
             boxShadow: "0px 0px 10px 0px #00000040",
-            // filter: "blur(4px)",
             mixBlendMode: "multiply",
             color: "white",
             alignItems: "center",
             fontWeight: 600,
             fontSize: "36px",
-            // margin: "358px 60px",
             padding: "14px 18px",
             width: "710",
             height: "77",
@@ -260,14 +251,11 @@ export function TimeSelectScreen() {
           flexItem
           sx={{ height: "2px", width: "750px", marginTop: 3 }}
         />
-        {/*<Box*/}
-        {/*  sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}*/}
-        {/*>*/}
         <Typography
-          variant="h6"
+          variant="h5"
           sx={{
             fontWeight: 500,
-            fontSize: "24px",
+            fontFamily: "Noto Sans JP",
             marginTop: 4,
             alignSelf: "flex-start",
           }}
@@ -290,70 +278,38 @@ export function TimeSelectScreen() {
                 backgroundColor: "lightgray",
                 color: "white",
                 fontWeight: 600,
-                fontSize: "36px",
-                width: "80px",
+                fontSize: "24px",
+                fontFamily: "inter",
+                borderRadius: "10px",
+                width: "80",
                 height: "60px",
                 gap: "10px",
+                padding: "14px 18px ",
               }}
             >
               {time.toFixed(1)}
             </Button>
           ))}
         </Box>
-        {/*</Box>*/}
         <Typography
-          variant="h6"
+          variant="h5"
           sx={{
             fontWeight: 500,
-            fontSize: "24px",
             marginTop: 4,
             alignSelf: "flex-start",
           }}
         >
           打刻時間
         </Typography>
-        {/*<Box*/}
-        {/*  sx={{*/}
-        {/*    width: "100%", // 親要素の幅を100%に設定*/}
-        {/*    maxWidth: "800px", // 最大幅を指定（必要に応じて調整）*/}
-        {/*    padding: "16px",*/}
-        {/*  }}*/}
-        {/*>*/}
         <TimePicker
           onChange={handleTimeChange}
           value={clockInTime}
           disableClock
           clearIcon={null}
           className="custom-time-picker"
-          // renderInput={(
-          //   props: JSX.IntrinsicAttributes & {
-          //     variant?: TextFieldVariants | undefined;
-          //   } & Omit<
-          //       | FilledTextFieldProps
-          //       | OutlinedTextFieldProps
-          //       | StandardTextFieldProps,
-          //       "variant"
-          //     >,
-          // ) => (
-          //   <TextField
-          //     {...props}
-          //     sx={{
-          //       // fontSize: "1.2rem", // フォントサイズを調整
-          //       width: "600px",
-          //       height: "60px",
-          //       // top: 719px;
-          //       // left: 60px;
-          //       gap: "0px",
-          //       borderRadius: "10px 0px 0px 0px",
-          //       border: "1px 0px 0px 0px",
-          //     }}
-          //   />
-          // )}
         />
-        {/*</Box>*/}
 
         <Typography
-          variant="body1"
           sx={{ textAlign: "center", fontSize: "36px", padding: "30px" }}
         >
           残業時間: {Number(overTime).toFixed(1)}
@@ -364,13 +320,11 @@ export function TimeSelectScreen() {
           sx={{
             backgroundColor: "#0B5FFF",
             boxShadow: "0px 0px 10px 0px #00000040",
-            // filter: "blur(4px)",
             mixBlendMode: "multiply",
             color: "white",
             alignItems: "center",
             fontWeight: 600,
             fontSize: "36px",
-            // margin: "358px 60px",
             padding: "14px 18px",
             width: "710",
             height: "77",

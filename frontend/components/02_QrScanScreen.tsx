@@ -8,7 +8,7 @@ import { AppToolBar } from "../src/AppToolBar.tsx";
 export function QrScanScreen() {
   const navigate = useNavigate();
   const [, setEmployeeCode] = useAtom(employeeCodeAtom);
-  const [userInfos, setUserInfos] = useAtom(userInfosAtom);
+  const [, setUserInfos] = useAtom(userInfosAtom);
 
   const { ref } = useZxing({
     onDecodeResult(result) {
@@ -17,16 +17,19 @@ export function QrScanScreen() {
 
       async function getUserInfo() {
         const URL = process.env.VITE_URL;
-        console.log(URL + "/getUserInfo/" + employee_code);
+        const today = new Date();
+        const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        console.log(formattedDate);
+
         const resultUserInfo = await fetch(
-          URL + "/getUserInfo/" + employee_code,
+          URL + "/getUserInfo/" + employee_code + "/" + formattedDate,
         );
         const userInfos = await resultUserInfo.json();
         setUserInfos(userInfos.data[0] as UserInfos);
 
         //⭐️useInfosのデータが更新されていないため、元のデータで判定
         if (!userInfos.data.name) {
-          navigate("/time-select");
+          // navigate("/time-select");
         } else {
           alert("ユーザ情報が存在しませんでした。");
         }
@@ -41,10 +44,11 @@ export function QrScanScreen() {
   });
 
   //暫定　「仮）QR読込」ボタン用処理
-  const handleTemtative = () => {
+  const handleTentative = () => {
     async function getUserInfo() {
+      setEmployeeCode("0000001"); //従業員コードを設定
       const URL = process.env.VITE_URL;
-      const resultUserInfo = await fetch(URL + "/getUserInfo/0000001");
+      const resultUserInfo = await fetch(URL + "/getUserInfo/0000001/20241201");
       const userInfos = await resultUserInfo.json();
       setUserInfos(userInfos.data[0] as UserInfos);
     }
@@ -54,45 +58,40 @@ export function QrScanScreen() {
 
   return (
     <>
-      <button onClick={handleTemtative}>動作確認用）QR読込と同等ボタン</button>
-
+      <button onClick={handleTentative}>動作確認用）QR読込と同等ボタン</button>
       <Box>
         <AppToolBar />
-
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
+            // justifyContent: "space-between",
             alignItems: "center",
             textAlign: "center",
             width: "100%",
+            height: "100vh",
           }}
         >
-          <Box
+          <Typography
+            variant="h5"
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
+              marginTop: "10px",
+              fontWeight: 600,
+              flexGrow: 1,
+              textAlign: "center",
             }}
           >
-            <Typography
-              variant="h5"
-              sx={{
-                marginTop: "10px",
-                fontWeight: 600,
-                flexGrow: 1,
-                textAlign: "center",
-              }}
-            >
-              QRコードを読み込ませてください
-            </Typography>
-          </Box>
+            QRコードを読み込ませてください
+          </Typography>
 
           <video
             ref={ref}
             style={{
               width: "100%",
-              borderRadius: "0 0 20px 20px",
+              height: "100%",
+              objectFit: "cover",
+              margin: 0,
             }}
           />
         </Box>

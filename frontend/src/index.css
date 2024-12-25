@@ -1,6 +1,7 @@
 
 body {
   font-family: 'Inter', 'Noto Sans JP';
+  margin: 0;
 }
 
 .custom-time-picker input{
@@ -20,3 +21,9 @@ body {
   font-weight:600;
   letter-spacing: 20px;
 }
+
+
+ .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+   font-size:34px !important;
+ }
+

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai/index";
 import {
+  employeeCodeAtom,
   clockInTimeAtom,
   displayUserInfoAtom,
   genreOfClockInAtm,
+  executeDateAtm,
   orverTimeAtom,
 } from "../src/atoms.ts";
 import { Box, Button, Typography } from "@mui/material";
@@ -12,10 +14,12 @@ import { AppToolBar } from "../src/AppToolBar.tsx";
 
 export function ConfirmScreen() {
   const navigate = useNavigate();
+  const [employeeCode] = useAtom(employeeCodeAtom);
   const [overTime] = useAtom(orverTimeAtom); //残業時間
   const [clockInTime] = useAtom(clockInTimeAtom); //打刻時間
   const [genreOfClockIn] = useAtom(genreOfClockInAtm); //打刻分類（始業or終業)
-  const [displayUserInfo, setDisplayUserInfo] = useAtom(displayUserInfoAtom);
+  const [displayUserInfo] = useAtom(displayUserInfoAtom);
+  const [executeDate] = useAtom(executeDateAtm);
   useEffect(() => {}, []);
   const handleCancel = () => {
     navigate("/time-select");
@@ -24,26 +28,28 @@ export function ConfirmScreen() {
     async function sendRecord() {
       const URL = process.env.VITE_URL;
       const url = URL + "/attendance-time/";
-      //clockInTimeが終業で〜７時までの場合は前日のデータとして登録する
-      //始業時は打刻時間が始業時間より前の場合に残業とする
-      //（終業時間は定時とみなして算出）
-      //終業時は打刻時刻が終業時刻より後の場合に残業とする
-      //終業時間登録時に残業時間を再計算する
+
+      const execDate =
+        executeDate.getFullYear() +
+        "/" +
+        (executeDate.getMonth() + 1) +
+        "/" +
+        executeDate.getDate();
+
+      const timestampKey = genreOfClockIn === "始業" ? "start_ts" : "end_ts";
+      const timestampValue = execDate + " " + clockInTime + ":00";
       const params = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // employee_code: employeeCode,
-          // start_date: ,
-          // start_ts:,
-          // end_ts:,
-          // before_overtime_flag:,
-          // after_overtime_flag:,
-          // overtime_minute:
+          employee_code: employeeCode,
+          start_date: execDate,
+          [timestampKey]: timestampValue,
         }),
       };
+
       const res = await fetch(url, params);
       const body = await res.json();
       console.log("res:", body);
@@ -58,22 +64,9 @@ export function ConfirmScreen() {
   };
   return (
     <>
-      {/*<div>*/}
-      {/*  <p>*/}
-      {/*    {clockInTime} {genreOfClockIn}*/}
-      {/*  </p>*/}
-      {/*  <p>（残業 {overTime}）</p>*/}
-      {/*  <p>送信しますか？</p>*/}
-      {/*  <button onClick={handleCancel}>キャンセル</button>*/}
-      {/*  <button onClick={handleSend}>送信</button>*/}
-      {/*</div>*/}
       <AppToolBar />
       <Box
         sx={{
-          // display: "flex",
-          // flexDirection: "column",
-          // alignItems: "center",
-          // textAlign: "center",
           height: "90vh",
           padding: "20px",
           backgroundColor: "#D9D9D9",
@@ -85,7 +78,7 @@ export function ConfirmScreen() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            // height: "",
+            height: "90vh",
             padding: "20px",
             backgroundColor: "white",
           }}
@@ -103,7 +96,13 @@ export function ConfirmScreen() {
           >
             {displayUserInfo}
           </Typography>
-
+          <Typography
+            variant="body1"
+            sx={{ marginBottom: "10px", fontSize: "80px" }}
+          >
+            {executeDate.getFullYear()}/{executeDate.getMonth() + 1}/
+            {executeDate.getDate()}
+          </Typography>
           <Typography
             variant="body1"
             sx={{ marginBottom: "10px", fontSize: "80px" }}
@@ -142,9 +141,10 @@ export function ConfirmScreen() {
                 color: "black",
                 fontWeight: 600,
                 padding: "30px 20px",
-                width: "270",
-                height: "120",
-                fontSize: "24px",
+                width: "270px",
+                height: "120px",
+                fontSize: "36px",
+                borderRadius: "10px",
               }}
             >
               キャンセル
@@ -156,9 +156,10 @@ export function ConfirmScreen() {
                 color: "white",
                 fontWeight: 600,
                 padding: "30px 40px",
-                width: "270",
-                height: "120",
-                fontSize: "24px",
+                width: "270px",
+                height: "120px",
+                fontSize: "36px",
+                borderRadius: "10px",
               }}
             >
               送信する

@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Box, AppBar, Toolbar, Typography } from "@mui/material";
-import { Source } from "@mui/icons-material";
 export function InitialScreen() {
   const navigate = useNavigate();
 
@@ -17,7 +16,6 @@ export function InitialScreen() {
             backgroundColor: "black",
             justifyContent: "center",
             textAlign: "center",
-            // borderRadius: "20px 20px 0 0",
             height: "40px",
           }}
         >
@@ -39,12 +37,16 @@ export function InitialScreen() {
             textAlign: "center",
             backgroundColor: "gray",
             color: "white",
-            borderRadius: "0 0 20px 20px ",
           }}
         >
           <Typography
             variant="h4"
-            sx={{ fontWeight: 600, fontSize: "64px", lineHeight: "1.8" }}
+            sx={{
+              fontWeight: 600,
+              fontSize: "64px",
+              fontFamily: "Inter, Noto Sans JP",
+              lineHeight: "1.8",
+            }}
           >
             画面をタップで <br />
             QR読み込み起動
