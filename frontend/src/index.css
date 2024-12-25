@@ -1,0 +1,29 @@
+
+body {
+  font-family: 'Inter', 'Noto Sans JP';
+  margin: 0;
+}
+
+.custom-time-picker input{
+  width: 200px !important;
+  height: 150px;
+  font-size: 64px !important;
+  font-family: Inter;
+  font-weight:600;
+  border-radius: 10px;
+  text-align: center;
+  letter-spacing: 20px;
+  box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.custom-time-picker {
+  font-size: 64px !important;
+  font-family: Inter;
+  font-weight:600;
+  letter-spacing: 20px;
+}
+
+
+ .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+   font-size:34px !important;
+ }
+
