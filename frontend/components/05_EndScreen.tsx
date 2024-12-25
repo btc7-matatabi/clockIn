@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { clockInTimeAtom, genreOfClockInAtm } from "../src/atoms";
 import { useAtom } from "jotai/index";
 import { Box, Button, Typography } from "@mui/material";
+import { AppToolBar } from "../src/AppToolBar.tsx";
 
 export function EndScreen() {
   const [clockInTime] = useAtom(clockInTimeAtom);
@@ -17,9 +18,7 @@ export function EndScreen() {
 
   return (
     <>
-      {/*<p>*/}
-      {/*  {clockInTime} {genreOfClockIn}で登録しました*/}
-      {/*</p>*/}
+      <AppToolBar />
       <Typography
         variant="body1" // 標準のテキストとして表示
         sx={{

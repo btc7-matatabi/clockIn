@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { InitialScreen } from "../components/InitialScreen";
-import { QrScanScreen } from "../components/QrScanScreen";
-import { TimeSelectScreen } from "../components/TimeSelectScreen";
-import { EndScreen } from "../components/EndScreen.tsx";
-import { ConfirmScreen } from "../components/Confirm.tsx";
+import { InitialScreen } from "../components/01_InitialScreen.tsx";
+import { QrScanScreen } from "../components/02_QrScanScreen.tsx";
+import { TimeSelectScreen } from "../components/03_TimeSelectScreen.tsx";
+import { EndScreen } from "../components/05_EndScreen.tsx";
+import { ConfirmScreen } from "../components/04_Confirm.tsx";
 import { Provider } from "jotai";
-import { TimePickerTest } from "../components/TimePickerTest.tsx";
 
 function AppRoutes() {
   return (
@@ -16,7 +15,6 @@ function AppRoutes() {
         <Route path="/time-select" element={<TimeSelectScreen />} />
         <Route path="/confirm" element={<ConfirmScreen />} />
         <Route path="/end" element={<EndScreen />} />
-        <Route path="/test" element={<TimePickerTest />} />
       </Routes>
     </Provider>
   );
