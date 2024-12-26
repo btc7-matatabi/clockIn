@@ -4,31 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="adb31c69-2f85-47a3-9607-27d6a47effce" name="変更" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/components/Confirm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/atoms.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/EndDisplayScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/EndScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/InitialScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/InitialScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/QrScanScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/QrScanScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/SelectClockinTypeScreen.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/TimeSelectScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/TimeSelectScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+    <list default="true" id="00925dcc-4fe9-4a0d-af9d-f3bca58d2ade" name="変更" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/02_QrScanScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/02_QrScanScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/04_Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/04_Confirm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/05_EndScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/05_EndScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/DatePickerTest.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/TimePickerTest.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/AppRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/AppRoutes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/atoms.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/atoms.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
     </list>
+    <list id="61da0b26-56d0-4094-a5dc-e1c5db9d5cf3" name="natsuさんが変更" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/clockIn" value="01_CreateScreens" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2qMxbULQhPZ5AuoM9WqOafuQff9" />
+  <component name="ProjectId" id="2qPiNGC0C9cnCK8MU5Zznu8deGC" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -37,16 +48,32 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "01__CreateScreens",
+    "git-widget-placeholder": "02__connect__with__backend",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/user/Documents/BTC7/lastProduct/input-assistant/moc/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "/Users/user/Documents/BTC7/lastProduct/clockIn/frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/input-assistant/moc/src" />
+      <recent name="$PROJECT_DIR$/clockIn/frontend/components" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/clockIn/frontend/image" />
+      <recent name="$PROJECT_DIR$/input-assistant/moc/src/sample" />
+      <recent name="$PROJECT_DIR$/input-assistant/moc/image" />
+      <recent name="$PROJECT_DIR$/input-assistant/moc/components" />
+      <recent name="$PROJECT_DIR$/clockIn/frontend/components" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -58,15 +85,14 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="アプリケーションレベル" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="デフォルトタスク">
-      <changelist id="adb31c69-2f85-47a3-9607-27d6a47effce" name="変更" comment="" />
-      <created>1734486317035</created>
+      <changelist id="00925dcc-4fe9-4a0d-af9d-f3bca58d2ade" name="変更" comment="" />
+      <created>1734570568373</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1734486317035</updated>
-      <workItem from="1734486318107" duration="6788000" />
-      <workItem from="1734570448528" duration="5000" />
-      <workItem from="1734570655057" duration="48000" />
-      <workItem from="1734651276303" duration="38000" />
+      <updated>1734570568373</updated>
+      <workItem from="1734570569486" duration="107000" />
+      <workItem from="1734570711972" duration="198241000" />
+      <workItem from="1735179584363" duration="24821000" />
     </task>
     <servers />
   </component>
@@ -79,12 +105,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/01_CreateScreens" />
+                        <option value="origin/backend" />
                       </list>
                     </value>
                   </entry>
@@ -95,5 +126,75 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/components/01_InitialScreen.tsx</url>
+          <line>9</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/src/AppRoutes.tsx</url>
+          <line>17</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/src/atoms.ts</url>
+          <line>9</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/components/02_QrScanScreen.tsx</url>
+          <line>21</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/components/02_QrScanScreen.tsx</url>
+          <line>14</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/src/atoms.ts</url>
+          <line>13</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/input-assistant/moc/src/sample/InputPage.tsx</url>
+          <line>2</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/input-assistant/moc/src/sample/column.tsx</url>
+          <line>83</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/input-assistant/moc/src/sample/column.tsx</url>
+          <line>89</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/components/03_TimeSelectScreen.tsx</url>
+          <line>110</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/components/04_Confirm.tsx</url>
+          <line>111</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/clockIn/frontend/components/03_TimeSelectScreen.tsx</url>
+          <line>145</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

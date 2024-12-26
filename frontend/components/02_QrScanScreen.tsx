@@ -10,55 +10,55 @@ export function QrScanScreen() {
   const [, setEmployeeCode] = useAtom(employeeCodeAtom);
   const [, setUserInfos] = useAtom(userInfosAtom);
 
-  const { ref } = useZxing({
-    onDecodeResult(result) {
-      const employee_code = result.getText();
-      setEmployeeCode(employee_code); //従業員コードを設定
+  async function getUserInfo(empCd: string) {
+    const URL = process.env.VITE_URL;
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
 
-      async function getUserInfo() {
-        const URL = process.env.VITE_URL;
-        const today = new Date();
-        const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-        console.log(formattedDate);
+    try {
+      const apiUrl = `${URL}/users/${empCd}/${formattedDate}`;
+      const resultUserInfo = await fetch(apiUrl);
 
-        const resultUserInfo = await fetch(
-          URL + "/getUserInfo/" + employee_code + "/" + formattedDate,
-        );
-        const userInfos = await resultUserInfo.json();
-        setUserInfos(userInfos.data[0] as UserInfos);
-
-        //⭐️useInfosのデータが更新されていないため、元のデータで判定
-        if (!userInfos.data.name) {
-          // navigate("/time-select");
-        } else {
-          alert("ユーザ情報が存在しませんでした。");
-        }
+      if (!resultUserInfo.ok) {
+        throw new Error(`HTTP error! Status: ${resultUserInfo.status}`);
       }
 
-      if (employee_code.length === 7) {
-        getUserInfo();
+      const datas: UserInfos = await resultUserInfo.json();
+      setUserInfos(datas);
+
+      if (datas) {
+        navigate("/time-select");
+      } else {
+        alert("ユーザ情報が存在しませんでした。");
+      }
+    } catch (error) {
+      console.error("Error in get user info:", error);
+      alert("ユーザ情報の取得中にエラーが発生しました。");
+    }
+  }
+
+  const { ref } = useZxing({
+    onDecodeResult(result) {
+      const getData = result.getText();
+      setEmployeeCode(getData); //従業員コードを設定
+
+      if (getData) {
+        getUserInfo(getData);
       } else {
         navigate("/");
       }
     },
   });
 
-  //暫定　「仮）QR読込」ボタン用処理
-  const handleTentative = () => {
-    async function getUserInfo() {
-      setEmployeeCode("0000001"); //従業員コードを設定
-      const URL = process.env.VITE_URL;
-      const resultUserInfo = await fetch(URL + "/getUserInfo/0000001/20241201");
-      const userInfos = await resultUserInfo.json();
-      setUserInfos(userInfos.data[0] as UserInfos);
-    }
-    getUserInfo();
-    navigate("/time-select");
-  };
+  // //暫定　「仮）QR読込」ボタン用処理
+  // const handleTentative = () => {
+  //   getUserInfo("0000001");
+  //   navigate("/time-select");
+  // };
 
   return (
     <>
-      <button onClick={handleTentative}>動作確認用）QR読込と同等ボタン</button>
+      {/*<button onClick={handleTentative}>動作確認用）QR読込と同等ボタン</button>*/}
       <Box>
         <AppToolBar />
         <Box

@@ -20,24 +20,24 @@ export function ConfirmScreen() {
   const [genreOfClockIn] = useAtom(genreOfClockInAtm); //打刻分類（始業or終業)
   const [displayUserInfo] = useAtom(displayUserInfoAtom);
   const [executeDate] = useAtom(executeDateAtm);
-  useEffect(() => {}, []);
   const handleCancel = () => {
     navigate("/time-select");
   };
-  const handleSend = () => {
-    async function sendRecord() {
-      const URL = process.env.VITE_URL;
-      const url = URL + "/attendance-time/";
 
-      const execDate =
-        executeDate.getFullYear() +
-        "/" +
-        (executeDate.getMonth() + 1) +
-        "/" +
-        executeDate.getDate();
+  async function sendRecord() {
+    const URL = process.env.VITE_URL;
+    const url = URL + "/attendance-time";
 
+    const execDate =
+      executeDate.getFullYear() +
+      "/" +
+      (executeDate.getMonth() + 1) +
+      "/" +
+      executeDate.getDate();
+
+    try {
       const timestampKey = genreOfClockIn === "始業" ? "start_ts" : "end_ts";
-      const timestampValue = execDate + " " + clockInTime + ":00";
+      const timestampValue = clockInTime + ":00";
       const params = {
         method: "POST",
         headers: {
@@ -49,19 +49,31 @@ export function ConfirmScreen() {
           [timestampKey]: timestampValue,
         }),
       };
-
       const res = await fetch(url, params);
       const body = await res.json();
       console.log("res:", body);
+    } catch (error) {
+      console.log("error", error);
     }
-    sendRecord();
+  }
+
+  const handleSend = async () => {
+    await sendRecord();
     navigate("/end");
   };
   const overTimeDisplay = () => {
     const hours = Math.floor(overTime);
     const minutes = (overTime - hours) * 60;
-    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+    // return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
+    return `${hours}:${("00" + minutes).slice(-2)}`;
   };
+  const clockInTimeOnly = new Date(clockInTime)
+    .toLocaleString("ja-JP", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false, // 24時間制（true にすると 12時間制）
+    })
+    .toString(); //HH:MM 表示
   return (
     <>
       <AppToolBar />
@@ -107,7 +119,8 @@ export function ConfirmScreen() {
             variant="body1"
             sx={{ marginBottom: "10px", fontSize: "80px" }}
           >
-            {clockInTime} {genreOfClockIn}
+            {/*{clockInTime} {genreOfClockIn}*/}
+            {clockInTimeOnly} {genreOfClockIn}
           </Typography>
           <Typography
             variant="body1"
@@ -116,13 +129,6 @@ export function ConfirmScreen() {
             （{genreOfClockIn === "始業" ? "早出" : ""}残業 {overTimeDisplay()}
             ）
           </Typography>
-
-          {/*<Typography*/}
-          {/*  variant="body1"*/}
-          {/*  sx={{ marginBottom: "20px", fontSize: "32px" }}*/}
-          {/*>*/}
-          {/*  送信しますか？*/}
-          {/*</Typography>*/}
 
           {/* ボタンの配置 */}
           <Box

@@ -4,21 +4,7 @@ import TimePicker from "react-time-picker";
 import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai/index";
-import {
-  Box,
-  Button,
-  Divider,
-  FilledTextFieldProps,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  OutlinedTextFieldProps,
-  RadioGroup,
-  StandardTextFieldProps,
-  TextField,
-  TextFieldVariants,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import {
   clockInTimeAtom,
   userInfosAtom,
@@ -28,16 +14,6 @@ import {
   displayUserInfoAtom,
 } from "../src/atoms.ts";
 import { AppToolBar } from "../src/AppToolBar.tsx";
-// import {
-//   DatePicker,
-//   LocalizationProvider,
-//   // AdapterDayjs,
-// } from "@mui/x-date-pickers";
-import { Radio } from "@mui/icons-material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { JSX } from "react/jsx-runtime";
-// import { LocalizationProvider, DatePicker } from "@mui/lab";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 export function TimeSelectScreen() {
   const navigate = useNavigate();
@@ -56,51 +32,18 @@ export function TimeSelectScreen() {
     if (userInfos) {
       setDisplayUserInfo(`${userInfos.group_name}      ${userInfos.name}`);
 
-      //QR読み込んだ時間が設定している始業・終業の近い方で表示
+      //打刻時間が午前はデフォルト始業、午後は終業にする版
       const today = new Date();
-      // const start_dateTime = timeStringToDate(userInfos.start_time);
-      // const end_dateTime = timeStringToDate(userInfos.end_time);
-
-      // // 開始が終了より後になっている場合、終了日を翌日にする
-      // if (start_dateTime && end_dateTime) {
-      //   if (start_dateTime > end_dateTime) {
-      //     end_dateTime.setDate(end_dateTime.getDate() + 1);
-      //   }
-      //   console.log("start_dateTime", start_dateTime);
-      //   console.log("end_dateTime", end_dateTime);
-      //
-      //   const diffBetweenStart = Math.abs(
-      //     today.getTime() - start_dateTime.getTime(),
-      //   );
-      //   const diffBetweenEnd = Math.abs(
-      //     today.getTime() - end_dateTime.getTime(),
-      //   );
-      //
-      //   if (diffBetweenStart >= diffBetweenEnd) {
-      //     setGenreOfClockIn("終業");
-      //     setRegularTime(userInfos.end_time.split(":").slice(0, 2).join(":"));
-      //   } else {
-      //     setGenreOfClockIn("始業");
-      //     setRegularTime(userInfos.start_time.split(":").slice(0, 2).join(":"));
-      //   }
-      // }
-      //打刻時間が午前は始業、午後は終業にする版
       if (today.getHours() >= 12) {
-        setGenreOfClockIn("終業");
-        setRegularTime(userInfos.end_time.split(":").slice(0, 2).join(":"));
+        setGenreOfClockIn("end");
+        setRegularTime(userInfos.end_time);
       } else {
-        setGenreOfClockIn("始業");
-        setRegularTime(userInfos.start_time.split(":").slice(0, 2).join(":"));
+        setGenreOfClockIn("start");
+        setRegularTime(userInfos.start_time);
       }
     }
+    console.log("🍎userInfos", userInfos);
   }, [userInfos]);
-
-  function timeStringToDate(stringTime: string): Date | null {
-    const [hours, minutes] = stringTime.split(":").map(Number); //数値型に変換
-    const date = new Date();
-    date.setHours(hours, minutes);
-    return date;
-  }
 
   // 定時 始業・終了処理
   const handleRegularConfirm = () => {
@@ -113,29 +56,26 @@ export function TimeSelectScreen() {
   const handleOvetimeClick = (overtimeValue: number) => {
     setOverTime(overtimeValue);
 
-    if (genreOfClockIn === "終業") {
+    if (genreOfClockIn === "end") {
       //orvertimeValueが少数の場合、分も加算される
-      const addedTime = moment(timeStringToDate(regularTime)).add(
-        overtimeValue,
-        "hours",
-      );
-      setClockInTime(addedTime.format("HH:mm"));
+      const addedTime = moment(regularTime).add(overtimeValue, "hours");
+      setClockInTime(addedTime.format("YYYY/MM/DD HH:mm:ss"));
     } else {
-      const addedTime = moment(timeStringToDate(regularTime)).subtract(
-        overtimeValue,
-        "hours",
-      );
-      setClockInTime(addedTime.format("HH:mm"));
+      const addedTime = moment(regularTime).subtract(overtimeValue, "hours");
+      // setClockInTime(addedTime.format("HH:mm"));
+      setClockInTime(addedTime.format("YYYY/MM/DD HH:mm:ss"));
     }
   };
 
   //time dramで時間変更
   const handleTimeChange = (newValue: string | ((prev: string) => string)) => {
+    console.log("newValue", newValue);
     setClockInTime(newValue);
   };
 
   // 時間指定 始業・終了処理
   const handleConfirm = () => {
+    console.log(clockInTime);
     navigate("/confirm");
   };
   const handleGenreChange = (val: string) => {
@@ -146,6 +86,22 @@ export function TimeSelectScreen() {
       setOverTime(0);
     }
   };
+  const regularTimeOnly = new Date(regularTime)
+    .toLocaleString("ja-JP", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false, // 24時間制（true にすると 12時間制）
+    })
+    .toString(); //HH:MM 表示
+
+  const clockInTimeOnly = new Date(clockInTime)
+    .toLocaleString("ja-JP", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false, // 24時間制（true にすると 12時間制）
+    })
+    .toString(); //HH:MM 表示
+
   return (
     <>
       {/*https://m2.material.io/design/typography/the-type-system.html#type-scale*/}
@@ -171,16 +127,16 @@ export function TimeSelectScreen() {
         <Box
           sx={{
             display: "flex",
-            // alignItems: "center",
             alignSelf: "flex-start",
             verticalAlign: "center",
             fontSize: "48px",
             fontFamily: "Source Sans Pro",
+            padding: 0,
             gap: "20px",
           }}
         >
           <Box sx={{ m: 2, width: "200px" }}>
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h5" gutterBottom sx={{ textAlign: "left" }}>
               申請稼働日
             </Typography>
             <DatePicker
@@ -239,12 +195,15 @@ export function TimeSelectScreen() {
             fontWeight: 600,
             fontSize: "36px",
             padding: "14px 18px",
-            width: "710",
+            width: "710px",
             height: "77",
             borderRadius: "20px 20px 20px 20px",
           }}
         >
-          定時 {regularTime} で{genreOfClockIn}打刻確認へ
+          {/*定時 {regularTime} で{genreOfClockIn}打刻確認へ*/}
+          定時 {
+            regularTimeOnly
+          } で{genreOfClockIn === "start" ? "始業" : "終業"}打刻確認へ
         </Button>
         <Divider
           orientation="horizontal"
@@ -265,9 +224,11 @@ export function TimeSelectScreen() {
         <Box
           sx={{
             display: "flex",
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
             gap: "2px",
             padding: "2px",
+            width: "710px",
+            justifyContent: "space-between",
           }}
         >
           {[0.5, 1.0, 1.5, 2.0, 2.5, 3.0].map((time) => (
@@ -276,15 +237,19 @@ export function TimeSelectScreen() {
               onClick={() => handleOvetimeClick(time)}
               sx={{
                 backgroundColor: "lightgray",
+                flexDirection: "row",
                 color: "white",
                 fontWeight: 600,
                 fontSize: "24px",
                 fontFamily: "inter",
                 borderRadius: "10px",
-                width: "80",
+                width: "100%",
                 height: "60px",
-                gap: "10px",
+                // gap: "10px",
                 padding: "14px 18px ",
+                "&:hover": {
+                  backgroundColor: "#0B5FFF",
+                },
               }}
             >
               {time.toFixed(1)}
@@ -303,7 +268,7 @@ export function TimeSelectScreen() {
         </Typography>
         <TimePicker
           onChange={handleTimeChange}
-          value={clockInTime}
+          value={clockInTimeOnly}
           disableClock
           clearIcon={null}
           className="custom-time-picker"
@@ -312,7 +277,8 @@ export function TimeSelectScreen() {
         <Typography
           sx={{ textAlign: "center", fontSize: "36px", padding: "30px" }}
         >
-          残業時間: {Number(overTime).toFixed(1)}
+          {genreOfClockIn === "start" ? "早出残業" : "残業時間"}:{" "}
+          {Number(overTime).toFixed(1)}
         </Typography>
 
         <Button
@@ -326,12 +292,12 @@ export function TimeSelectScreen() {
             fontWeight: 600,
             fontSize: "36px",
             padding: "14px 18px",
-            width: "710",
+            width: "710px",
             height: "77",
             borderRadius: "20px 20px 20px 20px",
           }}
         >
-          選択した時刻で{genreOfClockIn}打刻確認へ
+          選択した時刻で{genreOfClockIn === "start" ? "始業" : "終業"}打刻確認へ
         </Button>
       </Box>
     </>
