@@ -110,16 +110,17 @@ export function TimeSelectScreen() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignSelf: "flex-start",
           textAlign: "left",
           padding: "20px 50px 20px 50px",
+          fontWeight: 600,
         }}
       >
         <Typography
           variant="h3"
           sx={{
-            marginBottom: "20px",
-            alignSelf: "flex-start",
+            margin: "30px 0",
+            // alignSelf: "flex-start",
           }}
         >
           {displayUserInfo}
@@ -127,7 +128,7 @@ export function TimeSelectScreen() {
         <Box
           sx={{
             display: "flex",
-            alignSelf: "flex-start",
+            // alignSelf: "flex-start",
             verticalAlign: "center",
             fontSize: "48px",
             fontFamily: "Source Sans Pro",
@@ -135,8 +136,20 @@ export function TimeSelectScreen() {
             gap: "20px",
           }}
         >
-          <Box sx={{ m: 2, width: "200px" }}>
-            <Typography variant="h5" gutterBottom sx={{ textAlign: "left" }}>
+          <Box
+            sx={{
+              m: 2,
+              width: "270px",
+              // display: "flex",
+              // flexDirection: "column",
+              // justifyContent: "center",
+            }}
+          >
+            <Typography
+              variant="h5"
+              gutterBottom
+              sx={{ textAlign: "left", fontWeight: 600 }}
+            >
               申請稼働日
             </Typography>
             <DatePicker
@@ -151,9 +164,13 @@ export function TimeSelectScreen() {
                 <TextField
                   fullWidth
                   sx={{
-                    width: "200px",
-                    // fontSize: "48px",
+                    width: "100%",
                     padding: 0,
+                    // textAlign: "center",
+                    "& input": {
+                      textAlign: "center",
+                      fontWeight: 600,
+                    },
                   }}
                 />
               }
@@ -163,7 +180,13 @@ export function TimeSelectScreen() {
             return (
               <span
                 key={radio.value}
-                style={{ display: "flex", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  // marginTop: "20px",
+                  // marginRight: "30px",
+                  margin: "20px 30px 0 10px",
+                }}
               >
                 <input
                   id={radio.value}
@@ -173,8 +196,7 @@ export function TimeSelectScreen() {
                   onChange={(e) => handleGenreChange(e.target.value)}
                   style={{
                     transform: "scale(3)",
-                    marginRight: "20px",
-                    verticalAlign: "middle",
+                    marginRight: "30px",
                   }}
                 />
                 <label htmlFor={radio.value} className="form-check-label">
@@ -184,20 +206,24 @@ export function TimeSelectScreen() {
             );
           })}
         </Box>
+        <Divider
+          orientation="horizontal"
+          flexItem
+          sx={{ height: "2px", width: "750px", marginTop: 2, marginBottom: 4 }}
+        />
         <Button
           onClick={handleRegularConfirm}
           sx={{
             backgroundColor: "#0B5FFF",
             boxShadow: "0px 0px 10px 0px #00000040",
-            mixBlendMode: "multiply",
+            // mixBlendMode: "multiply",
             color: "white",
-            alignItems: "center",
+            // alignItems: "center",
             fontWeight: 600,
             fontSize: "36px",
             padding: "14px 18px",
-            width: "710px",
             height: "77",
-            borderRadius: "20px 20px 20px 20px",
+            borderRadius: "20px",
           }}
         >
           {/*定時 {regularTime} で{genreOfClockIn}打刻確認へ*/}
@@ -208,12 +234,12 @@ export function TimeSelectScreen() {
         <Divider
           orientation="horizontal"
           flexItem
-          sx={{ height: "2px", width: "750px", marginTop: 3 }}
+          sx={{ height: "2px", width: "750px", marginTop: 4 }}
         />
         <Typography
           variant="h5"
           sx={{
-            fontWeight: 500,
+            fontWeight: 600,
             fontFamily: "Noto Sans JP",
             marginTop: 4,
             alignSelf: "flex-start",
@@ -227,7 +253,8 @@ export function TimeSelectScreen() {
             flexWrap: "nowrap",
             gap: "2px",
             padding: "2px",
-            width: "710px",
+            margin: "10px 0 20px 0",
+            // width: "710px",
             justifyContent: "space-between",
           }}
         >
@@ -240,7 +267,7 @@ export function TimeSelectScreen() {
                 flexDirection: "row",
                 color: "white",
                 fontWeight: 600,
-                fontSize: "24px",
+                fontSize: "32px",
                 fontFamily: "inter",
                 borderRadius: "10px",
                 width: "100%",
@@ -259,23 +286,38 @@ export function TimeSelectScreen() {
         <Typography
           variant="h5"
           sx={{
-            fontWeight: 500,
-            marginTop: 4,
+            fontWeight: 600,
+            margin: "10px 0 ",
             alignSelf: "flex-start",
           }}
         >
           打刻時間
         </Typography>
+        {/*<Box sx={{ width: "100%" }}>*/}
         <TimePicker
           onChange={handleTimeChange}
           value={clockInTimeOnly}
           disableClock
           clearIcon={null}
           className="custom-time-picker"
+          // customInput={
+          //   <TextField
+          //     fullWidth
+          //     sx={{
+          //       width: "100%", // TextFieldを100%幅に設定
+          //     }}
+          //   />
+          // }
         />
+        {/*</Box>*/}
 
         <Typography
-          sx={{ textAlign: "center", fontSize: "36px", padding: "30px" }}
+          sx={{
+            textAlign: "center",
+            fontSize: "36px",
+            padding: "30px",
+            fontWeight: 600,
+          }}
         >
           {genreOfClockIn === "start" ? "早出残業" : "残業時間"}:{" "}
           {Number(overTime).toFixed(1)}
@@ -286,15 +328,15 @@ export function TimeSelectScreen() {
           sx={{
             backgroundColor: "#0B5FFF",
             boxShadow: "0px 0px 10px 0px #00000040",
-            mixBlendMode: "multiply",
+            // mixBlendMode: "multiply",
             color: "white",
-            alignItems: "center",
+            // alignItems: "center",
             fontWeight: 600,
             fontSize: "36px",
             padding: "14px 18px",
-            width: "710px",
+            // width: "710px",
             height: "77",
-            borderRadius: "20px 20px 20px 20px",
+            borderRadius: "20px",
           }}
         >
           選択した時刻で{genreOfClockIn === "start" ? "始業" : "終業"}打刻確認へ

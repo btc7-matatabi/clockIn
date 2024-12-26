@@ -98,33 +98,43 @@ export function ConfirmScreen() {
           {/* 表示するテキスト */}
           <Typography
             variant="body1"
-            sx={{ marginBottom: "20px", fontSize: "48px" }}
+            sx={{ margin: "50px 0", fontSize: "48px" }}
           >
             打刻送信確認
           </Typography>
           <Typography
             variant="body1"
-            sx={{ marginBottom: "20px", fontSize: "48px" }}
+            sx={{ marginBottom: "50px", fontSize: "48px", fontFamily: "inter" }}
           >
             {displayUserInfo}
           </Typography>
           <Typography
             variant="body1"
-            sx={{ marginBottom: "10px", fontSize: "80px" }}
+            sx={{
+              marginBottom: "0",
+              fontSize: "80px",
+              fontWeight: 600,
+              fontFamily: "inter",
+            }}
           >
             {executeDate.getFullYear()}/{executeDate.getMonth() + 1}/
             {executeDate.getDate()}
           </Typography>
           <Typography
             variant="body1"
-            sx={{ marginBottom: "10px", fontSize: "80px" }}
+            sx={{
+              marginBottom: "10px",
+              fontSize: "80px",
+              fontWeight: 600,
+              fontFamily: "inter",
+            }}
           >
             {/*{clockInTime} {genreOfClockIn}*/}
-            {clockInTimeOnly} {genreOfClockIn}
+            {clockInTimeOnly} {genreOfClockIn === "start" ? "始業" : "終業"}
           </Typography>
           <Typography
             variant="body1"
-            sx={{ marginBottom: "10px", fontSize: "48px" }}
+            sx={{ marginBottom: "30px", fontSize: "48px", fontFamily: "inter" }}
           >
             （{genreOfClockIn === "始業" ? "早出" : ""}残業 {overTimeDisplay()}
             ）
