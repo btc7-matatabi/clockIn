@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { clockInTimeAtom, genreOfClockInAtm } from "../src/atoms";
 // import { useAtom } from "jotai/index";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { AppToolBar } from "../src/AppToolBar.tsx";
 
 export function EndScreen() {
@@ -11,7 +11,7 @@ export function EndScreen() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       navigate("/");
     }, 2000);
   }, []);

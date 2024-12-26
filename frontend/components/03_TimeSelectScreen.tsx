@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import TimePicker from "react-time-picker";
-import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai/index";
 import { Box, Button, Divider, TextField, Typography } from "@mui/material";
@@ -14,6 +12,13 @@ import {
   displayUserInfoAtom,
 } from "../src/atoms.ts";
 import { AppToolBar } from "../src/AppToolBar.tsx";
+import { UserInfo } from "./03_01_UserInfo.tsx";
+import { DataPickerSection } from "./03_02_DataPickerSection.tsx";
+import { RadioButtonSection } from "./03_03_RadioButtonSection.tsx";
+import { OvertimeButtonSection } from "./03_04_OvertimeButtonSection.tsx";
+import { TimePickerSection } from "./03_05_TimePickerSection.tsx";
+import { RegularTimeButton } from "./03_06_RegularTimeButton.tsx";
+import { BottomButtonSection } from "./03_07_BottomButtonSection.tsx";
 
 export function TimeSelectScreen() {
   const navigate = useNavigate();
@@ -116,19 +121,11 @@ export function TimeSelectScreen() {
           fontWeight: 600,
         }}
       >
-        <Typography
-          variant="h3"
-          sx={{
-            margin: "30px 0",
-            // alignSelf: "flex-start",
-          }}
-        >
-          {displayUserInfo}
-        </Typography>
+        <UserInfo displayUserInfo={displayUserInfo} />
+
         <Box
           sx={{
             display: "flex",
-            // alignSelf: "flex-start",
             verticalAlign: "center",
             fontSize: "48px",
             fontFamily: "Source Sans Pro",
@@ -136,101 +133,26 @@ export function TimeSelectScreen() {
             gap: "20px",
           }}
         >
-          <Box
-            sx={{
-              m: 2,
-              width: "270px",
-              // display: "flex",
-              // flexDirection: "column",
-              // justifyContent: "center",
-            }}
-          >
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{ textAlign: "left", fontWeight: 600 }}
-            >
-              申請稼働日
-            </Typography>
-            <DatePicker
-              // label="dataPicker"
-              selected={executeDate}
-              placeholderText={
-                executeDate ? executeDate.toLocaleDateString() : ""
-              }
-              dateFormat="yyyy/MM/dd"
-              onChange={(newValue) => setExecuteDate(newValue)}
-              customInput={
-                <TextField
-                  fullWidth
-                  sx={{
-                    width: "100%",
-                    padding: 0,
-                    // textAlign: "center",
-                    "& input": {
-                      textAlign: "center",
-                      fontWeight: 600,
-                    },
-                  }}
-                />
-              }
-            />
-          </Box>
-          {radioButtons.map((radio) => {
-            return (
-              <span
-                key={radio.value}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  // marginTop: "20px",
-                  // marginRight: "30px",
-                  margin: "20px 30px 0 10px",
-                }}
-              >
-                <input
-                  id={radio.value}
-                  type="radio"
-                  value={radio.value}
-                  checked={radio.label === genreOfClockIn}
-                  onChange={(e) => handleGenreChange(e.target.value)}
-                  style={{
-                    transform: "scale(3)",
-                    marginRight: "30px",
-                  }}
-                />
-                <label htmlFor={radio.value} className="form-check-label">
-                  {radio.label}
-                </label>
-              </span>
-            );
-          })}
+          <DataPickerSection
+            executeDate={executeDate}
+            setExecuteDate={setExecuteDate}
+          />
+
+          <RadioButtonSection
+            genreOfClockIn={genreOfClockIn}
+            handleGenreChange={handleGenreChange}
+          />
         </Box>
         <Divider
           orientation="horizontal"
           flexItem
           sx={{ height: "2px", width: "750px", marginTop: 2, marginBottom: 4 }}
         />
-        <Button
-          onClick={handleRegularConfirm}
-          sx={{
-            backgroundColor: "#0B5FFF",
-            boxShadow: "0px 0px 10px 0px #00000040",
-            // mixBlendMode: "multiply",
-            color: "white",
-            // alignItems: "center",
-            fontWeight: 600,
-            fontSize: "36px",
-            padding: "14px 18px",
-            height: "77",
-            borderRadius: "20px",
-          }}
-        >
-          {/*定時 {regularTime} で{genreOfClockIn}打刻確認へ*/}
-          定時 {
-            regularTimeOnly
-          } で{genreOfClockIn === "start" ? "始業" : "終業"}打刻確認へ
-        </Button>
+        <RegularTimeButton
+          handleRegularConfirm={handleRegularConfirm}
+          regularTimeOnly={regularTimeOnly}
+          genreOfClockIn={genreOfClockIn}
+        />
         <Divider
           orientation="horizontal"
           flexItem
@@ -247,100 +169,18 @@ export function TimeSelectScreen() {
         >
           残業時間指定
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "nowrap",
-            gap: "2px",
-            padding: "2px",
-            margin: "10px 0 20px 0",
-            // width: "710px",
-            justifyContent: "space-between",
-          }}
-        >
-          {[0.5, 1.0, 1.5, 2.0, 2.5, 3.0].map((time) => (
-            <Button
-              key={time}
-              onClick={() => handleOvetimeClick(time)}
-              sx={{
-                backgroundColor: "lightgray",
-                flexDirection: "row",
-                color: "white",
-                fontWeight: 600,
-                fontSize: "32px",
-                fontFamily: "inter",
-                borderRadius: "10px",
-                width: "100%",
-                height: "60px",
-                // gap: "10px",
-                padding: "14px 18px ",
-                "&:hover": {
-                  backgroundColor: "#0B5FFF",
-                },
-              }}
-            >
-              {time.toFixed(1)}
-            </Button>
-          ))}
-        </Box>
-        <Typography
-          variant="h5"
-          sx={{
-            fontWeight: 600,
-            margin: "10px 0 ",
-            alignSelf: "flex-start",
-          }}
-        >
-          打刻時間
-        </Typography>
-        {/*<Box sx={{ width: "100%" }}>*/}
-        <TimePicker
-          onChange={handleTimeChange}
-          value={clockInTimeOnly}
-          disableClock
-          clearIcon={null}
-          className="custom-time-picker"
-          // customInput={
-          //   <TextField
-          //     fullWidth
-          //     sx={{
-          //       width: "100%", // TextFieldを100%幅に設定
-          //     }}
-          //   />
-          // }
+
+        <OvertimeButtonSection handleOvetimeClick={handleOvetimeClick} />
+        <TimePickerSection
+          handleTimeChange={handleTimeChange}
+          clockInTimeOnly={clockInTimeOnly}
         />
-        {/*</Box>*/}
 
-        <Typography
-          sx={{
-            textAlign: "center",
-            fontSize: "36px",
-            padding: "30px",
-            fontWeight: 600,
-          }}
-        >
-          {genreOfClockIn === "start" ? "早出残業" : "残業時間"}:{" "}
-          {Number(overTime).toFixed(1)}
-        </Typography>
-
-        <Button
-          onClick={handleConfirm}
-          sx={{
-            backgroundColor: "#0B5FFF",
-            boxShadow: "0px 0px 10px 0px #00000040",
-            // mixBlendMode: "multiply",
-            color: "white",
-            // alignItems: "center",
-            fontWeight: 600,
-            fontSize: "36px",
-            padding: "14px 18px",
-            // width: "710px",
-            height: "77",
-            borderRadius: "20px",
-          }}
-        >
-          選択した時刻で{genreOfClockIn === "start" ? "始業" : "終業"}打刻確認へ
-        </Button>
+        <BottomButtonSection
+          genreOfClockIn={genreOfClockIn}
+          overTime={overTime}
+          handleConfirm={handleConfirm}
+        />
       </Box>
     </>
   );
