@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00925dcc-4fe9-4a0d-af9d-f3bca58d2ade" name="変更" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_01_UserInfo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_02_DataPickerSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_03_RadioButtonSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_04_OvertimeButtonSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_05_TimePickerSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_06_RegularTimeButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/03_07_BottomButtonSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/components/04_Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/04_Confirm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/05_EndScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/05_EndScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
     </list>
     <list id="61da0b26-56d0-4094-a5dc-e1c5db9d5cf3" name="natsuさんが変更" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,6 +48,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "プロジェクト",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "ts.external.directory.path": "/Users/user/Documents/BTC7/lastProduct/clockIn/frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
@@ -92,6 +88,7 @@
       <workItem from="1734570569486" duration="107000" />
       <workItem from="1734570711972" duration="198241000" />
       <workItem from="1735179584363" duration="34544000" />
+      <workItem from="1735226974913" duration="8067000" />
     </task>
     <servers />
   </component>
@@ -191,8 +188,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx</url>
-          <line>125</line>
-          <properties lambdaOrdinal="-1" />
+          <line>139</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>

@@ -77,7 +77,7 @@ export function ConfirmScreen() {
       <AppToolBar />
       <Box
         sx={{
-          height: "90vh",
+          height: "100%",
           padding: "20px",
           backgroundColor: "#D9D9D9",
         }}
@@ -88,7 +88,7 @@ export function ConfirmScreen() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            height: "90vh",
+            height: "950px",
             padding: "20px",
             backgroundColor: "white",
           }}

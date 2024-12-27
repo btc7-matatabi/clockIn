@@ -132,6 +132,7 @@ export function TimeSelectScreen() {
           textAlign: "left",
           padding: "20px 50px 20px 50px",
           fontWeight: 600,
+            width:"710px"
         }}
       >
         <UserInfo displayUserInfo={displayUserInfo} />
@@ -156,21 +157,44 @@ export function TimeSelectScreen() {
             handleGenreChange={handleGenreChange}
           />
         </Box>
+      </Box>
         <Divider
           orientation="horizontal"
           flexItem
-          sx={{ height: "2px", width: "750px", marginTop: 2, marginBottom: 4 }}
+          // sx={{ borderWidth: "4px", width: "750px", marginTop: 2, marginBottom: 4 }}
+          sx={{ borderWidth: "4px", width: "750px", mx: "auto", }}
         />
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignSelf: "flex-start",
+                textAlign: "left",
+                padding: "20px 50px 20px 50px",
+                fontWeight: 600,
+            }}
+        >
         <RegularTimeButton
           handleRegularConfirm={handleRegularConfirm}
           regularTimeOnly={regularTimeOnly}
           genreOfClockIn={genreOfClockIn}
         />
+        </Box>
         <Divider
           orientation="horizontal"
           flexItem
-          sx={{ height: "2px", width: "750px", marginTop: 4 }}
+          sx={{ borderWidth: "4px", width: "750px", mx: "auto",  }}
         />
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignSelf: "flex-start",
+                textAlign: "left",
+                padding: "20px 50px 20px 50px",
+                fontWeight: 600,
+            }}
+        >
         <Typography
           variant="h5"
           sx={{
