@@ -63,7 +63,6 @@ export function ConfirmScreen() {
   const overTimeDisplay = () => {
     const hours = Math.floor(overTime);
     const minutes = (overTime - hours) * 60;
-    // return `${hours}:${minutes < 10 ? "0" : ""}${minutes}`;
     return `${hours}:${("00" + minutes).slice(-2)}`;
   };
   const clockInTimeOnly = new Date(clockInTime)

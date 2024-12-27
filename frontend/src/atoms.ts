@@ -10,10 +10,9 @@ export interface UserInfos {
 export const userInfosAtom = atom<UserInfos | null>(null);
 export const employeeCodeAtom = atom("");
 export const clockInTimeAtom = atom(
-  // new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
   new Date(),
 );
 export const orverTimeAtom = atom(0);
-export const genreOfClockInAtm = atom("");
-export const executeDateAtm = atom(new Date());
+export const genreOfClockInAtm = atom<"start" | "end"|"">("");
+export const executeDateAtm = atom<Date>(new Date());
 export const displayUserInfoAtom = atom("");

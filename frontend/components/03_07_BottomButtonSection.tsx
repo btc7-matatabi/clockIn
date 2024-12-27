@@ -2,11 +2,17 @@ import { Button, Typography } from "@mui/material";
 import React from "react";
 
 export const BottomButtonSection: React.FC<{
-  genreOfClockIn: "start" | "end";
+  genreOfClockIn: "start" | "end"|"";
   overTime: number;
   handleConfirm: () => void;
 }> = ({ genreOfClockIn, overTime, handleConfirm }) => {
-  return (
+    const overTimeDisplay = () => {
+        const hours = Math.floor(overTime);
+        const minutes = (overTime - hours) * 60;
+        return `${hours}:${("00" + minutes).slice(-2)}`;
+    };
+
+    return (
     <>
       <Typography
         sx={{
@@ -16,8 +22,10 @@ export const BottomButtonSection: React.FC<{
           fontWeight: 600,
         }}
       >
-        {genreOfClockIn === "start" ? "早出残業" : "残業時間"}:{" "}
-        {Number(overTime).toFixed(1)}
+        {/*{genreOfClockIn === "start" ? "早出残業" : "残業時間"}:{" "}*/}
+        {genreOfClockIn === "start" ? "早出残業  " : "残業時間  "}
+        {/*{Number(overTime).toFixed(1)}*/}
+          {overTimeDisplay()}
       </Typography>
 
       <Button

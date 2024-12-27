@@ -1,10 +1,11 @@
 import { Box, TextField, Typography } from "@mui/material";
 import DatePicker from "react-datepicker";
 import React from "react";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const DataPickerSection: React.FC<{
   executeDate: Date;
-  setExecuteDate: (date: Date | null) => void;
+  setExecuteDate: (date: Date ) => void;
 }> = ({ executeDate, setExecuteDate }) => {
   return (
     <Box
@@ -25,7 +26,7 @@ export const DataPickerSection: React.FC<{
         selected={executeDate}
         placeholderText={executeDate ? executeDate.toLocaleDateString() : ""}
         dateFormat="yyyy/MM/dd"
-        onChange={(newValue) => setExecuteDate(newValue)}
+        onChange={(newValue:Date|null) => newValue && setExecuteDate(newValue)}
         customInput={
           <TextField
             fullWidth

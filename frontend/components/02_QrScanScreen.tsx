@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 import { employeeCodeAtom, UserInfos, userInfosAtom } from "../src/atoms";
 import { Box, Typography } from "@mui/material";
 import { AppToolBar } from "../src/AppToolBar.tsx";
+import {useEffect} from "react";
 
 export function QrScanScreen() {
   const navigate = useNavigate();
@@ -50,6 +51,23 @@ export function QrScanScreen() {
     },
   });
 
+    const stopVideoStream = () => {
+        const videoElement = ref.current;
+        if (videoElement && videoElement.srcObject) {
+            const stream = videoElement.srcObject as MediaStream;
+            const tracks = stream.getTracks();
+            tracks.forEach((track) => track.stop()); // 各トラックを停止
+            videoElement.srcObject = null; // srcObjectをnullにすることでリソースを解放
+        }
+    };
+
+    // QRコードを読み取った後にビデオを停止
+    useEffect(() => {
+        // コンポーネントがアンマウントされる時やQRを読み取った後にビデオを停止
+        return () => {
+            stopVideoStream(); // コンポーネントアンマウント時にビデオストリームを停止
+        };
+    }, []);
   // //暫定　「仮）QR読込」ボタン用処理
   // const handleTentative = () => {
   //   getUserInfo("0000001");

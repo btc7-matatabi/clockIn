@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import moment from "moment";
+import  { useState, useEffect } from "react";
+// import moment from "moment";
+import { addHours, subHours } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai/index";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import { Box,Divider, Typography } from "@mui/material";
 import {
   clockInTimeAtom,
   userInfosAtom,
@@ -28,7 +29,8 @@ export function TimeSelectScreen() {
   const [genreOfClockIn, setGenreOfClockIn] = useAtom(genreOfClockInAtm); //「始業」か「終了」
   const [executeDate, setExecuteDate] = useAtom(executeDateAtm);
   const [displayUserInfo, setDisplayUserInfo] = useAtom(displayUserInfoAtom);
-  const [regularTime, setRegularTime] = useState(""); // 定時設定
+  // const [regularTime, setRegularTime] = useState(""); // 定時設定
+  const [regularTime, setRegularTime] = useState(new Date()); // 定時設定
   const radioButtons = [
     { label: "始業", value: "start" },
     { label: "終業", value: "end" },
@@ -41,18 +43,19 @@ export function TimeSelectScreen() {
       const today = new Date();
       if (today.getHours() >= 12) {
         setGenreOfClockIn("end");
-        setRegularTime(userInfos.end_time);
+        // setRegularTime(userInfos.end_time);
+        setRegularTime(new Date(userInfos.end_time));
       } else {
         setGenreOfClockIn("start");
-        setRegularTime(userInfos.start_time);
+        // setRegularTime(userInfos.start_time);
+        setRegularTime(new Date(userInfos.start_time));
       }
     }
-    console.log("🍎userInfos", userInfos);
+    // console.log("🍎userInfos", userInfos);
   }, [userInfos]);
 
   // 定時 始業・終了処理
   const handleRegularConfirm = () => {
-    console.log("regularTime", regularTime);
     setClockInTime(regularTime);
     navigate("/confirm");
   };
@@ -61,36 +64,46 @@ export function TimeSelectScreen() {
   const handleOvetimeClick = (overtimeValue: number) => {
     setOverTime(overtimeValue);
 
-    if (genreOfClockIn === "end") {
-      //orvertimeValueが少数の場合、分も加算される
-      const addedTime = moment(regularTime).add(overtimeValue, "hours");
-      setClockInTime(addedTime.format("YYYY/MM/DD HH:mm:ss"));
-    } else {
-      const addedTime = moment(regularTime).subtract(overtimeValue, "hours");
-      // setClockInTime(addedTime.format("HH:mm"));
-      setClockInTime(addedTime.format("YYYY/MM/DD HH:mm:ss"));
-    }
+    //warning対応のため、momentをdate-fnsに変更
+    // if (genreOfClockIn === "end") {
+    //   //overtimeValueが少数の場合、分も加算される
+    //   const addedTime = moment(regularTime).add(overtimeValue, "hours");;
+    //   setClockInTime(addedTime.format("YYYY/MM/DD HH:mm:ss"));
+    // } else {
+    //   const addedTime = moment(regularTime).subtract(overtimeValue, "hours");
+    //     setClockInTime(addedTime.format("YYYY/MM/DD HH:mm:ss"));
+    // }
+      if (genreOfClockIn === "end") {
+          // overtimeValue が少数の場合、分も加算される
+          const addedTime = addHours(new Date(regularTime), overtimeValue);
+          setClockInTime(addedTime);
+      } else {
+          const addedTime = subHours(new Date(regularTime), overtimeValue);
+          setClockInTime(addedTime);
+      }
   };
 
   //time dramで時間変更
-  const handleTimeChange = (newValue: string | ((prev: string) => string)) => {
-    console.log("newValue", newValue);
-    setClockInTime(newValue);
+  const handleTimeChange = (newValue: string|null) => {
+    if(newValue !==null){
+      setClockInTime(new Date(newValue));
+    }
   };
 
   // 時間指定 始業・終了処理
   const handleConfirm = () => {
-    console.log(clockInTime);
     navigate("/confirm");
   };
+
   const handleGenreChange = (val: string) => {
     const selectedGenre = radioButtons.find((el) => el.value === val);
-    if (selectedGenre) {
-      setGenreOfClockIn(selectedGenre.label);
+    if (selectedGenre&&(selectedGenre.value==="start"||selectedGenre.value==="end")) {
+      setGenreOfClockIn(selectedGenre.value);
       setClockInTime(new Date());
       setOverTime(0);
     }
   };
+
   const regularTimeOnly = new Date(regularTime)
     .toLocaleString("ja-JP", {
       hour: "numeric",
@@ -162,7 +175,7 @@ export function TimeSelectScreen() {
           variant="h5"
           sx={{
             fontWeight: 600,
-            fontFamily: "Noto Sans JP",
+            fontFamily: "Noto Sans JP, sans-serif",
             marginTop: 4,
             alignSelf: "flex-start",
           }}

@@ -15,8 +15,6 @@ export const RadioButtonSection: React.FC<{
         style={{
           display: "flex",
           alignItems: "center",
-          // marginTop: "20px",
-          // marginRight: "30px",
           margin: "20px 30px 0 10px",
         }}
       >
@@ -24,7 +22,7 @@ export const RadioButtonSection: React.FC<{
           id={radio.value}
           type="radio"
           value={radio.value}
-          checked={radio.label === genreOfClockIn}
+          checked={radio.value === genreOfClockIn}
           onChange={(e) => handleGenreChange(e.target.value)}
           style={{
             transform: "scale(3)",
