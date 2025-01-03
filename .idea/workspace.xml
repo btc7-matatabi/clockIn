@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="00925dcc-4fe9-4a0d-af9d-f3bca58d2ade" name="変更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/03_TimeSelectScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/04_Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/04_Confirm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/vite-env.d.ts" beforeDir="false" />
     </list>
     <list id="61da0b26-56d0-4094-a5dc-e1c5db9d5cf3" name="natsuさんが変更" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +88,7 @@
       <workItem from="1734570569486" duration="107000" />
       <workItem from="1734570711972" duration="198241000" />
       <workItem from="1735179584363" duration="34544000" />
-      <workItem from="1735226974913" duration="8067000" />
+      <workItem from="1735226974913" duration="20005000" />
     </task>
     <servers />
   </component>
