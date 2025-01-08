@@ -1,6 +1,6 @@
 import  { useState, useEffect } from "react";
 // import moment from "moment";
-import { addHours, subHours } from "date-fns";
+import {addHours, format, parse, subHours} from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai/index";
 import { Box,Divider, Typography } from "@mui/material";
@@ -37,7 +37,7 @@ export function TimeSelectScreen() {
   ];
   useEffect(() => {
     if (userInfos) {
-      setDisplayUserInfo(`${userInfos.group_name}      ${userInfos.name}`);
+      setDisplayUserInfo(`${userInfos.group_name}　${userInfos.name}`);
 
       //打刻時間が午前はデフォルト始業、午後は終業にする版
       const today = new Date();
@@ -86,7 +86,12 @@ export function TimeSelectScreen() {
   //time dramで時間変更
   const handleTimeChange = (newValue: string|null) => {
     if(newValue !==null){
-      setClockInTime(new Date(newValue));
+        console.log("newValue",newValue)
+      // setClockInTime(new Date(newValue));
+        const today = new Date();
+        const todayFormatted = format(today, 'yyyy-MM-dd');
+        const strNewValue=`${todayFormatted} ${newValue}`;
+        setClockInTime(parse(strNewValue, 'yyyy-MM-dd HH:mm', new Date()));
     }
   };
 
@@ -96,13 +101,23 @@ export function TimeSelectScreen() {
   };
 
   const handleGenreChange = (val: string) => {
-    const selectedGenre = radioButtons.find((el) => el.value === val);
-    if (selectedGenre&&(selectedGenre.value==="start"||selectedGenre.value==="end")) {
-      setGenreOfClockIn(selectedGenre.value);
-      setClockInTime(new Date());
-      setOverTime(0);
-    }
-  };
+      const selectedGenre = radioButtons.find((el) => el.value === val);
+      //打刻日、ジャンル設定用
+      if (selectedGenre && (selectedGenre.value === "start" || selectedGenre.value === "end")) {
+          setGenreOfClockIn(selectedGenre.value);
+          setClockInTime(new Date());
+          setOverTime(0);
+      }
+      //打刻時間初期値設定用
+      if (selectedGenre && userInfos) {
+          if (selectedGenre.value === "start") {
+              setRegularTime(new Date(userInfos.start_time));
+          } else {
+              setRegularTime(new Date(userInfos.end_time));
+          }
+      }
+  }
+
 
   const regularTimeOnly = new Date(regularTime)
     .toLocaleString("ja-JP", {
@@ -139,6 +154,7 @@ export function TimeSelectScreen() {
 
         <Box
           sx={{
+              width:"100%",
             display: "flex",
             verticalAlign: "center",
             fontSize: "48px",
@@ -151,8 +167,8 @@ export function TimeSelectScreen() {
             executeDate={executeDate}
             setExecuteDate={setExecuteDate}
           />
-
-          <RadioButtonSection
+            <Box sx={{ marginLeft: "70px" }}></Box>
+            <RadioButtonSection
             genreOfClockIn={genreOfClockIn}
             handleGenreChange={handleGenreChange}
           />
@@ -162,7 +178,7 @@ export function TimeSelectScreen() {
           orientation="horizontal"
           flexItem
           // sx={{ borderWidth: "4px", width: "750px", marginTop: 2, marginBottom: 4 }}
-          sx={{ borderWidth: "4px", width: "750px", mx: "auto", }}
+          sx={{ borderWidth: "2px", width: "800px", mx: "auto", marginTop:"10px" ,marginBottom:"10px"}}
         />
         <Box
             sx={{
@@ -183,7 +199,7 @@ export function TimeSelectScreen() {
         <Divider
           orientation="horizontal"
           flexItem
-          sx={{ borderWidth: "4px", width: "750px", mx: "auto",  }}
+          sx={{ borderWidth: "2px", width: "800px", mx: "auto",  marginTop:"10px" ,marginBottom:"10px" }}
         />
         <Box
             sx={{

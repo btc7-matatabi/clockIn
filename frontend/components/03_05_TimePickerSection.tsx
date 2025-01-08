@@ -12,7 +12,8 @@ export const TimePickerSection: React.FC<{
         variant="h5"
         sx={{
           fontWeight: 600,
-          margin: "10px 0 ",
+          marginTop: "30px",
+            marginBottom:"10px",
           alignSelf: "flex-start",
         }}
       >

@@ -10,6 +10,7 @@ import {
 } from "../src/atoms.ts";
 import { Box, Button, Typography } from "@mui/material";
 import { AppToolBar } from "../src/AppToolBar.tsx";
+import {format} from "date-fns";
 
 export function ConfirmScreen() {
   const navigate = useNavigate();
@@ -22,8 +23,13 @@ export function ConfirmScreen() {
   const handleCancel = () => {
     navigate("/time-select");
   };
+    // const timestampMap: Record<string, string> = {
+    //     "始業": "start_ts",
+    //     "終業": "end_ts"
+    // };
 
-  async function sendRecord() {
+
+    async function sendRecord() {
     const URL = process.env.VITE_URL;
     const url = URL + "/attendance-time";
 
@@ -35,8 +41,12 @@ export function ConfirmScreen() {
       executeDate.getDate();
 
     try {
-      const timestampKey = genreOfClockIn === "始業" ? "start_ts" : "end_ts";
-      const timestampValue = clockInTime + ":00";
+      // const timestampKey = genreOfClockIn === "始業" ? "start_ts" : "end_ts";
+      const timestampKey = genreOfClockIn === "start" ? "start_ts" : "end_ts";
+      //   const timestampKey = timestampMap[genreOfClockIn] || "start_ts"
+      // const timestampValue = clockInTime + ":00";
+      const timestampValue = format(clockInTime,"yyyy/MM/dd HH:mm:ss") ;
+      console.log("timestampValue",timestampValue)
       const params = {
         method: "POST",
         headers: {
@@ -48,6 +58,7 @@ export function ConfirmScreen() {
           [timestampKey]: timestampValue,
         }),
       };
+        console.log("params:", params);
       const res = await fetch(url, params);
       const body = await res.json();
       console.log("res:", body);
@@ -58,7 +69,7 @@ export function ConfirmScreen() {
 
   const handleSend = async () => {
     await sendRecord();
-    navigate("/end");
+    // navigate("/end");
   };
   const overTimeDisplay = () => {
     const hours = Math.floor(overTime);
@@ -77,8 +88,9 @@ export function ConfirmScreen() {
       <AppToolBar />
       <Box
         sx={{
-          height: "100%",
-          padding: "20px",
+          // height: "100%",
+            height: "calc(100vh - 40px)",
+          padding: "40px",
           backgroundColor: "#D9D9D9",
         }}
       >
@@ -88,28 +100,29 @@ export function ConfirmScreen() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            height: "950px",
-            padding: "20px",
+            // height: "950px",
+            padding: "40px",
             backgroundColor: "white",
+              height: "calc(100vh - 200px)",
           }}
         >
           {/* 表示するテキスト */}
           <Typography
             variant="body1"
-            sx={{ margin: "50px 0", fontSize: "48px" }}
+            sx={{ margin: "100px 0", fontSize: "56px" }}
           >
             打刻送信確認
           </Typography>
           <Typography
             variant="body1"
-            sx={{ marginBottom: "50px", fontSize: "48px", fontFamily: "inter" }}
+            sx={{ marginBottom: "80px", fontSize: "56px", fontFamily: "inter" }}
           >
             {displayUserInfo}
           </Typography>
           <Typography
             variant="body1"
             sx={{
-              marginBottom: "0",
+              marginBottom: "10px",
               fontSize: "80px",
               fontWeight: 600,
               fontFamily: "inter",
@@ -121,7 +134,7 @@ export function ConfirmScreen() {
           <Typography
             variant="body1"
             sx={{
-              marginBottom: "10px",
+              marginBottom: "20px",
               fontSize: "80px",
               fontWeight: 600,
               fontFamily: "inter",
@@ -132,9 +145,10 @@ export function ConfirmScreen() {
           </Typography>
           <Typography
             variant="body1"
-            sx={{ marginBottom: "30px", fontSize: "48px", fontFamily: "inter" }}
+            sx={{ marginBottom: "30px", fontSize: "56px", fontFamily: "inter" }}
           >
-            （{genreOfClockIn === "始業" ? "早出" : ""}残業 {overTimeDisplay()}
+            {/*（{genreOfClockIn === "始業" ? "早出" : ""}残業 {overTimeDisplay()}*/}
+            （{genreOfClockIn === "start" ? "早出" : ""}残業 {overTimeDisplay()}
             ）
           </Typography>
 
@@ -142,10 +156,10 @@ export function ConfirmScreen() {
           <Box
             sx={{
               display: "flex",
-              gap: "10px",
+              gap: "50px",
               justifyContent: "center",
               width: "100%",
-              margin: "60px",
+              margin: "80px",
             }}
           >
             <Button
@@ -155,9 +169,9 @@ export function ConfirmScreen() {
                 color: "black",
                 fontWeight: 600,
                 padding: "30px 20px",
-                width: "270px",
+                width: "300px",
                 height: "120px",
-                fontSize: "36px",
+                fontSize: "48px",
                 borderRadius: "10px",
               }}
             >
@@ -170,9 +184,9 @@ export function ConfirmScreen() {
                 color: "white",
                 fontWeight: 600,
                 padding: "30px 40px",
-                width: "270px",
+                width: "300px",
                 height: "120px",
-                fontSize: "36px",
+                fontSize: "48px",
                 borderRadius: "10px",
               }}
             >

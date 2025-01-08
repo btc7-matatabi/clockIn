@@ -13,6 +13,7 @@ export const clockInTimeAtom = atom(
   new Date(),
 );
 export const orverTimeAtom = atom(0);
-export const genreOfClockInAtm = atom<"start" | "end"|"">("");
+// export const genreOfClockInAtm = atom<"start" | "end"|"">("");
+export const genreOfClockInAtm = atom<"start" | "end">("start");
 export const executeDateAtm = atom<Date>(new Date());
 export const displayUserInfoAtom = atom("");

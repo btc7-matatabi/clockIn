@@ -15,7 +15,9 @@ export const RadioButtonSection: React.FC<{
         style={{
           display: "flex",
           alignItems: "center",
-          margin: "20px 30px 0 10px",
+            flexDirection: "row",
+            margin: "20px 30px 0 10px",
+            gap:"20px"
         }}
       >
         <input
@@ -26,10 +28,16 @@ export const RadioButtonSection: React.FC<{
           onChange={(e) => handleGenreChange(e.target.value)}
           style={{
             transform: "scale(3)",
-            marginRight: "30px",
+             // marginRight: "10px",
           }}
         />
-        <label htmlFor={radio.value} className="form-check-label">
+        <label htmlFor={radio.value} className="form-check-label"
+               style={{
+                   display: "inline-flex", // ラベルをインラインでflexにする
+                   alignItems: "center",  // ラベルの縦揃え
+                   whiteSpace: "nowrap", // ラベル内で文字が折り返されないようにする
+                   writingMode: "horizontal-tb", // 横書きにする（縦書きを防ぐ）
+               }}>
           {radio.label}
         </label>
       </span>

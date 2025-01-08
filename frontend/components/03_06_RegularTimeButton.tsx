@@ -14,7 +14,7 @@ export const RegularTimeButton: React.FC<{
         boxShadow: "0px 0px 10px 0px #00000040",
         color: "white",
         fontWeight: 600,
-        fontSize: "36px",
+        fontSize: "40px",
         padding: "14px 18px",
         height: "77",
         borderRadius: "20px",

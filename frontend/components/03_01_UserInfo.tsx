@@ -8,7 +8,9 @@ export const UserInfo: React.FC<{ displayUserInfo: string }> = ({
     <Typography
       variant="h3"
       sx={{
-        margin: "30px 0",
+        margin: "30px",
+          gap:"50px",
+          fontsize:"48px",
       }}
     >
       {displayUserInfo}

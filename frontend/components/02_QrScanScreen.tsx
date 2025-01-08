@@ -18,6 +18,7 @@ export function QrScanScreen() {
 
     try {
       const apiUrl = `${URL}/users/${empCd}/${formattedDate}`;
+      console.log("🍎apiUrl",apiUrl)
       const resultUserInfo = await fetch(apiUrl);
 
       if (!resultUserInfo.ok) {
@@ -39,7 +40,7 @@ export function QrScanScreen() {
   }
 
   const { ref } = useZxing({
-    onDecodeResult(result) {
+      onDecodeResult(result) {
       const getData = result.getText();
       setEmployeeCode(getData); //従業員コードを設定
 
