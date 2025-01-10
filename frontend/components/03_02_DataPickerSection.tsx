@@ -38,7 +38,7 @@ export const DataPickerSection: React.FC<{
                 textAlign: "center",
                 fontWeight: 600,
                   font:"inter",
-                width:"350px"
+                width:"250px"
               },
             }}
           />

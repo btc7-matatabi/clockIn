@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { InitialScreen } from "../components/01_InitialScreen.tsx";
+// import { InitialScreen } from "../components/01_InitialScreen.tsx";      //暫定
 import { QrScanScreen } from "../components/02_QrScanScreen.tsx";
 import { TimeSelectScreen } from "../components/03_TimeSelectScreen.tsx";
 import { EndScreen } from "../components/05_EndScreen.tsx";
@@ -10,7 +10,8 @@ function AppRoutes() {
   return (
     <Provider>
       <Routes>
-        <Route path="/" element={<InitialScreen />} />
+        {/*<Route path="/" element={<InitialScreen />} />*/}
+        <Route path="/" element={<QrScanScreen />} />   //暫定
         <Route path="/qr-scan" element={<QrScanScreen />} />
         <Route path="/time-select" element={<TimeSelectScreen />} />
         <Route path="/confirm" element={<ConfirmScreen />} />

@@ -69,7 +69,7 @@ export function ConfirmScreen() {
 
   const handleSend = async () => {
     await sendRecord();
-    // navigate("/end");
+    navigate("/end");
   };
   const overTimeDisplay = () => {
     const hours = Math.floor(overTime);
@@ -88,9 +88,8 @@ export function ConfirmScreen() {
       <AppToolBar />
       <Box
         sx={{
-          // height: "100%",
-            height: "calc(100vh - 40px)",
-          padding: "40px",
+            height: "100vh",
+          padding: "3vh",
           backgroundColor: "#D9D9D9",
         }}
       >
@@ -100,10 +99,10 @@ export function ConfirmScreen() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            // height: "950px",
-            padding: "40px",
+            padding: "0",
             backgroundColor: "white",
-              height: "calc(100vh - 200px)",
+            height: "90vh",
+            maxHeight: "calc(100vh - 80px)",
           }}
         >
           {/* 表示するテキスト */}
